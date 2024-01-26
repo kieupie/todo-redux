@@ -1,23 +1,17 @@
-import logo from './logo.svg';
+import { Typography, Divider } from 'antd';
 import './App.css';
+import TodoList from './components/TodoList';
+import Filters from './components/Filters';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="w-[500px] bg-white p-4 shadow-lg rounded-md">
+        <Typography.Title level={2} className="text-blue-500">Todo x Redux</Typography.Title>
+        <Filters />
+        <Divider />
+        <TodoList />
+      </div>
     </div>
   );
 }
