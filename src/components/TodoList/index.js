@@ -4,18 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTodo } from '../../redux/action'
 import { v4 as uuidv4 } from 'uuid'
 import { useState } from 'react';
-import { todoListSelector, searchTextSelector } from '../../redux/selector'
+import { todosRemainingSelector } from '../../redux/selector'
 
 export default function TodoList() {
     const [todoName, setTodoName] = useState('');
     const [priority, setPriority] = useState('Medium');
 
-    // For option 1
-    const todoList = useSelector(todoListSelector);
-    const searchText = useSelector(searchTextSelector);
-
-    // For option 2
-    // const todoList = useSelector(todoRemainingSelector);
+    const todoList = useSelector(todosRemainingSelector);
 
 
     const dispatch = useDispatch();
@@ -25,7 +20,7 @@ export default function TodoList() {
         dispatch(addTodo({
             id: uuidv4(),
             name: todoName,
-            prioriry: priority,
+            priority: priority,
             completed: false,
         }))
 
@@ -37,19 +32,19 @@ export default function TodoList() {
         setTodoName(e.target.value)
     }
 
-    const handleSelectChange = (value) => {
-        setPriority(value)
-    }
+    const handlePriorityChange = (value) => {
+        setPriority(value);
+    };
 
     return (
         <Row style={{ height: 'calc(100% - 40px)' }}>
             <Col span={24} style={{ height: 'calc(100% - 40px)', overflowY: 'auto' }}>
-                {todoList.map(todo => <Todo key={todo.id} name={todo.name} prioriry={todo.prioriry} />)}
+                {todoList.map(todo => <Todo id={todo.id} key={todo.id} name={todo.name} priority={todo.priority} completed={todo.completed} />)}
             </Col>
             <Col span={24}>
                 <Space.Compact style={{ display: 'flex', marginTop: '20px' }} compact="true">
                     <Input value={todoName} onChange={handleInputChange} />
-                    <Select defaultValue="Medium" value={priority} onChange={handleSelectChange}>
+                    <Select defaultValue="Medium" value={priority} onChange={handlePriorityChange}>
                         <Select.Option value='High' label='High'>
                             <Tag color='red'>High</Tag>
                         </Select.Option>

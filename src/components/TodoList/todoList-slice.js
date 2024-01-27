@@ -1,44 +1,34 @@
-const initialState = [
-    {
-        id: 1,
-        name: 'Learn Redux',
-        completed: false,
-        prioriry: 'Medium',
-    },
-    {
-        id: 2,
-        name: 'Learn Nodejs',
-        completed: true,
-        prioriry: 'High',
-    },
-    {
-        id: 3,
-        name: 'Learn MongoDB',
-        completed: false,
-        prioriry: 'Low',
-    }
+const initState = [
+  { id: 1, name: 'Learn Redux', completed: false, priority: 'Medium' },
+  { id: 2, name: 'Learn Nodejs', completed: true, priority: 'High' },
+  { id: 3, name: 'Learn MongoDB', completed: false, priority: 'Low' },
 ];
 
-const todoListReducer = (state = initialState, action) => {
-    /**
+
+const todoListReducer = (state = initState, action) => {
+        /**
      * Example of action
      * {
      *  type: 'todoList/addTodo',
-     *  payload: { id: 4, name: 'Learn json', completed: true, prioriry: 'Medium'},
+     *  payload: { id: 4, name: 'Learn json', completed: true, priority: 'Medium'},
      * }
      */
 
-    console.log({ state, action });
+console.log({ state, action });
 
     switch (action.type) {
         case 'todoList/addTodo':
-            return [
-                ...state,
-                action.payload,
-            ]
+            return [...state, action.payload];
+
+        case 'todoList/toggleTodoStatus':
+            return state.map((todo) =>
+                todo.id === action.payload
+                    ? { ...todo, completed: !todo.completed }
+                    : todo
+            );
         default:
             return state;
     }
-}
+};
 
 export default todoListReducer;

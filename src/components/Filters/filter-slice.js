@@ -1,32 +1,42 @@
-const initialState = {
-    search: '',
-    status: 'All',
-    prioriry: [],
-}
-const filtersReducer = (state = initialState, action) => {
-    /**
-     * Example of action
-     * {
-     *      type: 'filters/searchFilterChange',
-     *      {
-                search: 'Learn JavaScript',
-                status: 'All',
-                prioriry: [],
-            },
-     * }
-     */
+const initState = {
+  search: '',
+  status: 'All',
+  priorities: [],
+};
 
-    console.log({ state, action });
+const filtersReducer = (state = initState, action) => {
+  /**
+* Example of action
+* {
+*      type: 'filters/searchFilterChange',
+*      {
+          search: 'Learn JavaScript',
+          status: 'All',
+          priorities: [],
+      },
+* }
+*/
+  switch (action.type) {
+    case 'filters/searchFilterChange':
+      return {
+        ...state,
+        search: action.payload,
+      };
 
-    switch (action.type) {
-        case 'filters/searchFilterChange':
-            return {
-                ...state,
-                search: action.payload
-            }
-        default:
-            return state;
-    }
-}
+    case 'filters/statusFilterChange':
+      return {
+        ...state,
+        status: action.payload
+      }
+
+    case 'filters/prioritiesFilterChange':
+      return {
+        ...state,
+        priorities: action.payload
+      }
+    default:
+      return state;
+  }
+};
 
 export default filtersReducer;
