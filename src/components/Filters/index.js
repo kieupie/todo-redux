@@ -1,25 +1,29 @@
 import { Col, Row, Input, Typography, Radio, Select, Tag } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-
-// const { Search } = Input;
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchFilterChange } from '../../redux/action';
 
 export default function Filters() {
+  const dispatch = useDispatch();
+
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value);
+    dispatch(searchFilterChange(e.target.value));
+  }
+
   return (
     <Row justify='center'>
-      {/* <Col span={24}>
-        <Typography.Paragraph
-          className='font-bold mb-3 mt-10'
-        >
-          Search
-        </Typography.Paragraph>
-        <Search placeholder='input search text' />
-      </Col> */}
       <Col span={24}>
         <p className="font-bold mb-3 mt-10">Search</p>
         <Input
-          placeholder="input search text"
+          placeholder="Search..."
           prefix={<SearchOutlined className="text-gray-400" />}
           className="w-full"
+          value={searchText}
+          onChange={handleSearchTextChange}
         />
       </Col>
       <Col sm={24}>
