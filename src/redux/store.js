@@ -1,23 +1,13 @@
-import { createStore, compose } from 'redux';
-import rootReducer from './reducer';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { configureStore } from '@reduxjs/toolkit';
+import filtersSlice from '../components/Filters/filter-slice';
+import todosSlice from '../components/TodoList/todoList-slice';
 
-const composeEnhancers = composeWithDevTools();
-
-// initial state
-const initValue = {
-};
-
-// enhancers or middleware
-const enhancers = compose(
-    //   applyMiddleware()
-);
-
-const store = createStore(
-    rootReducer,
-    composeEnhancers,
-    //   initValue,
-    //   enhancers
-);
+//Đã tích hợp sẵn middleware (composeWithReduxDevtools)
+const store = configureStore({
+    reducer: {
+        filters: filtersSlice.reducer,
+        todoList: todosSlice.reducer,
+    },
+});
 
 export default store;

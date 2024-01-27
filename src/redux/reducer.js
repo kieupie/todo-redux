@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import filtersReducer from '../components/Filters/filter-slice';
 import todoListReducer from '../components/TodoList/todoList-slice';
 

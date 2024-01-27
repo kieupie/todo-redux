@@ -2,7 +2,7 @@ import { Col, Row, Input, Typography, Radio, Select, Tag } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { priorityFilterChange, searchFilterChange, statusFilterChange } from '../../redux/action'
+import filterSlice from './filter-slice' //redux-toolkit
 
 export default function Filters() {
   const dispatch = useDispatch();
@@ -14,17 +14,17 @@ export default function Filters() {
 
   const handleSearchTextChange = (e) => {
     setSearchText(e.target.value);
-    dispatch(searchFilterChange(e.target.value));
+    dispatch(filterSlice.actions.searchFilterChange(e.target.value));
   }
 
   const handleFilterStatusChange = (e) => {
     setFilterStatus(e.target.value);
-    dispatch(statusFilterChange(e.target.value));
+    dispatch(filterSlice.actions.statusFilterChange(e.target.value));
   }
 
   const handlePriorityChange = (value) => {
     setFilterPriorities(value);
-    dispatch(priorityFilterChange(value));
+    dispatch(filterSlice.actions.prioritiesFilterChange(value));
   }
 
   return (

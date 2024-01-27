@@ -1,42 +1,31 @@
-const initState = {
-  search: '',
-  status: 'All',
-  priorities: [],
-};
+import { createSlice } from '@reduxjs/toolkit';
 
-const filtersReducer = (state = initState, action) => {
-  /**
-* Example of action
-* {
-*      type: 'filters/searchFilterChange',
-*      {
-          search: 'Learn JavaScript',
-          status: 'All',
-          priorities: [],
-      },
-* }
-*/
-  switch (action.type) {
-    case 'filters/searchFilterChange':
-      return {
-        ...state,
-        search: action.payload,
-      };
-
-    case 'filters/statusFilterChange':
-      return {
-        ...state,
-        status: action.payload
-      }
-
-    case 'filters/prioritiesFilterChange':
-      return {
-        ...state,
-        priorities: action.payload
-      }
-    default:
-      return state;
-  }
-};
-
-export default filtersReducer;
+export default createSlice({
+  name: 'filters',
+  initialState: {
+    search: '',
+    status: 'All',
+    priorities: [],
+  },
+  reducers: {
+    /** tự tạo ra action creators có type bằng với name (ở đây là filters)
+     * function searchFilterChange () {
+     *  return {
+     *         type: 'filter/searchFilterChange',
+     *  }
+     * }
+     * 
+     ** cho phép viết code mutation nhưng hoạt động như một immutable
+     */
+    searchFilterChange: (state, action) => {
+      // mutation || IMMER
+      state.search = action.payload;
+    },
+    statusFilterChange: (state, action) => {
+      state.status = action.payload;
+    },
+    prioritiesFilterChange: (state, action) => {
+      state.priorities = action.payload;
+    },
+  },
+});
