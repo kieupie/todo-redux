@@ -8,7 +8,16 @@ export default createSlice({
         { id: 3, name: 'Learn MongoDB', completed: false, priority: 'Low' },
     ],
     reducers: {
-        // IMMER
+        /** tự tạo ra action creators có type bằng với name (ở đây là filters)
+         * không phụ thuộc và file action (bỏ file redux/action)
+         * function searchFilterChange () {
+         *  return {
+         *         type: 'filter/searchFilterChange',
+         *  }
+         * }
+         * 
+         ** cho phép viết code mutation nhưng hoạt động như một immutable
+         */
         addTodo: (state, action) => {
             state.push(action.payload);
         },

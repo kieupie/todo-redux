@@ -9,6 +9,7 @@ export default createSlice({
   },
   reducers: {
     /** tự tạo ra action creators có type bằng với name (ở đây là filters)
+     * không phụ thuộc và file action (bỏ file redux/action)
      * function searchFilterChange () {
      *  return {
      *         type: 'filter/searchFilterChange',
