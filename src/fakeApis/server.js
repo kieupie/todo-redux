@@ -1,16 +1,33 @@
-import { createServer } from "miragejs"
+import { createServer, Model } from "miragejs"
 
 export const setupServer = () => {
-    let server = createServer()
+    let server = createServer(
+        {
+            models: {
+                todos: Model
+            },
 
-    //GET todo
-    server.get("/api/todos", {
-        todos: [[
-            { id: 1, name: 'Learn Redux', completed: false, priority: 'Medium' },
-            { id: 2, name: 'Learn Nodejs', completed: true, priority: 'High' },
-            { id: 3, name: 'Learn MongoDB', completed: false, priority: 'Low' },
-        ]]
-    })
+            routes() {
+                //GET todo
+                this.get('/api/todos', (schema) => {
+                    return schema.todos.all();
+                });
 
+                //POST add todo
+                this.post('/api/todos', (schema, request) => {
+                    const payload = JSON.parse(request.requestBody);
 
+                    return schema.todos.create(payload);
+                });
+
+                //POST update todo
+                this.post('/api/updateTodos', (schema, request) => {
+                    const payload = JSON.parse(request.requestBody);
+                    const currentTodo = schema.todos.find(payload.id);
+
+                    currentTodo.update(payload);
+                })
+            }
+        }
+    )
 }
