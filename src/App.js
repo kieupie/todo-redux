@@ -4,55 +4,18 @@ import './App.css';
 import TodoList from './components/TodoList';
 import Filters from './components/Filters';
 import { setupServer } from './fakeApis/server';
+import { useDispatch } from 'react-redux';
+import { fetchTodos } from './components/TodoList/todoList-slice';
 
 if (process.env.NODE_ENV !== 'production') {
   setupServer();
 }
 
 function App() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    // POST todo
-    fetch('/api/todos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: 4, name: 'Learn Redux-Thunk', completed: false, priority: 'High' }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('Todo created:', data);
-
-        // GET todos
-        return fetch('/api/todos');
-      })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('All todos:', data);
-
-        // Update todo
-        return fetch('/api/updateTodos', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ id: 4, name: 'Learn Redux-Thunk update', completed: true, priority: 'Low' }),
-        });
-      })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('Todo updated:', data);
-
-        // GET updated todos
-        return fetch('/api/todos');
-      })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('Updated todos:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    dispatch(fetchTodos());
   }, []);
 
 

@@ -22,10 +22,13 @@ export const setupServer = () => {
 
                 //POST update todo
                 this.post('/api/updateTodos', (schema, request) => {
-                    const payload = JSON.parse(request.requestBody);
-                    const currentTodo = schema.todos.find(payload.id);
+                    const id = JSON.parse(request.requestBody);
 
-                    currentTodo.update(payload);
+                    const currentTodo = schema.todos.find(id);
+
+                    currentTodo.update({ completed: !currentTodo.completed });
+
+                    return currentTodo;
                 })
             }
         }
