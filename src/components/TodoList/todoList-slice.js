@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export default createSlice({
+const todosSlice =  createSlice({
     name: 'todoList',
     initialState: [
         { id: 1, name: 'Learn Redux', completed: false, priority: 'Medium' },
@@ -30,3 +30,21 @@ export default createSlice({
         }
     }
 });
+
+export default todosSlice;
+
+// action (object) và action creators () => {return action}
+// thunk action (function) và thunk action creators () => {return thunk action}
+
+export function addTodos(todo) {
+    return function addTodosThunk(dispatch, getState) {
+        //dispatch thunk action
+        console.log('[addTodosThunk]', getState());
+        console.log(todo);
+
+        //custom - dispatch action
+        todo.name = 'Hello world!'
+        dispatch(todosSlice.actions.addTodo(todo))
+        console.log('[addTodosThunk after]', getState());
+    }
+}

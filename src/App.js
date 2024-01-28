@@ -5,7 +5,9 @@ import TodoList from './components/TodoList';
 import Filters from './components/Filters';
 import { setupServer } from './fakeApis/server';
 
-setupServer();
+if (process.env.NODE_ENV !== 'production') {
+  setupServer();
+}
 
 function App() {
   useEffect(() => {
